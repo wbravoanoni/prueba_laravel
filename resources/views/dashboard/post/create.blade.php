@@ -5,7 +5,7 @@
 @section('title','Insertar Post')
 @section('titlePage','Insertar Post')
 
-<form action="{{route('post.store')}}" method="post">
+<form action="{{route('category.store')}}" method="post">
     @csrf
 
     <label for="title">Titulo</label><br>

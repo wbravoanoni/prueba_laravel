@@ -7,7 +7,8 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\Post\PutRequest;
 use App\Http\Requests\Post\StoreRequest;
-
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 
 
@@ -16,7 +17,7 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() : View
 
     {   
         $registros = Post::orderBy('id','desc')->paginate(2);
@@ -26,7 +27,7 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create() : View
     {   
         $categories = Category::pluck('id','title');
         $publish = ['yes','not'];
@@ -36,7 +37,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request) : RedirectResponse
     {   
         Post::create($request->all());
         return to_route('post.index')->with('status','registro Creado');;
@@ -45,7 +46,7 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(Post $post) : View
     {
         $categories = Category::pluck('id','title');
         return view('dashboard.post.show',compact('categories','post')); 
@@ -54,7 +55,7 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(Post $post): View
     {
         $categories = Category::pluck('id','title');
         return view('dashboard.post.edit',compact('categories','post')); 
@@ -63,7 +64,7 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PutRequest $request, Post $post)
+    public function update(PutRequest $request, Post $post) : RedirectResponse
     {   
 
         $data = $request->validated();
