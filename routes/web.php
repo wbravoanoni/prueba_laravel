@@ -15,13 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return view('welcome');
+});
+
+
 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified','admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -30,7 +32,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::group(['prefix'=>'dashboard','middleware'=>'auth'],function(){
+Route::group(['prefix'=>'dashboard','middleware'=>['auth','admin']],function(){
     Route::resources([
         'post' => App\Http\Controllers\PostController::class,
         'category' => App\Http\Controllers\CategoryController::class,
