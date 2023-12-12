@@ -71,7 +71,7 @@
 
 
 
-    <button type="submit">Enviar</button>
+    <button class="btn btn-success" type="submit">Enviar</button>
 </form>
     
 @endsection

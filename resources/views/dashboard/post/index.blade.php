@@ -1,7 +1,5 @@
 @extends('dashboard.post.layout')
 
-
-
 @section('title','Listado de post')
 @section('titlePage','Listado de Post')
 
@@ -10,21 +8,21 @@
 <a href="{{route('post.create')}}">Crear Post</a>
 
 
-<table>
+<table class="table mb-3">
     <thead>
-
+        <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>category</th>
+            <th>slug</th>
+            <th>description</th>
+            <th>content</th>
+            <th>posted</th>
+            <th>acciones</th>
+        </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>id</td>
-            <td>title</td>
-            <td>category</td>
-            <td>slug</td>
-            <td>description</td>
-            <td>content</td>
-            <td>posted</td>
-            <td>acciones</td>
-        </tr>
+
 
         @foreach ($registros as $item)
         <tr>
@@ -36,12 +34,12 @@
             <td>{{$item->content}}</td>
             <td>{{$item->posted}}</td>
             <td>
-                <a href="{{route('post.edit',$item)}}">Editar</a>
-                <a href="{{route('post.show',$item)}}">Ver</a>
+                <a class="btn btn-warning my-2" href="{{route('post.edit',$item)}}">Editar</a>
+                <a class="btn btn-primary my-2" href="{{route('post.show',$item)}}">Ver</a>
                 <form action="{{route('post.destroy',$item->id)}}" method="POST">
                     @csrf
                     @method('PUT')
-                    <button type="submit">Eliminar</button>
+                    <button class="btn btn-danger my-2" type="submit">Eliminar</button>
                 </form>
             </td>
         </tr>

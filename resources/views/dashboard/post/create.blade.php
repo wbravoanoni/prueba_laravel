@@ -9,7 +9,7 @@
     @csrf
 
     <label for="title">Titulo</label><br>
-    <input type="text" name="title" id="title" value='{{old('title')}}'>
+    <input type="text" class="form-control" name="title" id="title" value='{{old('title')}}'>
 
     @error('title')
     <br>
@@ -28,7 +28,7 @@
     <br><br>
 
     <label for="">Posteado</label><br>
-    <select name="posted" id="">
+    <select class="form-control" name="posted" id="">
             @php($titles = ['yes','not'])
 
         @foreach ($titles as $key)
@@ -38,7 +38,7 @@
     <br><br>
 
     <label for="content">Contenido</label><br>
-    <textarea type="text" name="content" id="content">{{old('content')}}</textarea>
+    <textarea class="form-control" type="text" name="content" id="content">{{old('content')}}</textarea>
     @error('content')
     <br>
     <span>* {{ $message }}</span>
@@ -48,7 +48,7 @@
     <br><br>
 
     <label for="description">Descripción</label><br>
-    <textarea type="text" name="description" id="description">{{old('description')}}</textarea>
+    <textarea class="form-control" type="text" name="description" id="description">{{old('description')}}</textarea>
     @error('description')
     <br>
     <span>* {{ $message }}</span>
@@ -65,7 +65,7 @@
     
     <br><br>
 
-    <button type="submit">Enviar</button>
+    <button class="btn btn-primary" type="submit">Enviar</button>
 </form>
     
 @endsection

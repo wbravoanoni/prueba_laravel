@@ -9,7 +9,7 @@
 
 <br><br>    
 
-    <table border=1>
+    <table class="table mb-3">
         <tbody>
             <tr>
                 <td>Categorias</td>
@@ -19,13 +19,13 @@
         @foreach ($categories as $item)
             <tr><td>{{$item->title}}</td>
                 <td>
-                    <a href="{{route('category.show',$item->id)}}">Ver</a>
+                    <a class="mt-2 btn btn-primary" href="{{route('category.show',$item->id)}}">Ver</a>
                     <form action="{{route('category.destroy',$item->id)}}" method="POST">
                         @csrf
                         @method('PUT')
-                        <button type="submit">Eliminar</button>
+                        <button class="mt-2 btn btn-danger" type="submit">Eliminar</button>
                     </form>
-                    <a href="{{route('category.edit',$item->id)}}">Editar</a>
+                    <a class="mt-2 btn btn-success" href="{{route('category.edit',$item->id)}}">Editar</a>
                 </td>
             </tr>
         @endforeach

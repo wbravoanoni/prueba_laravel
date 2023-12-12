@@ -1,7 +1,5 @@
 @extends('dashboard.post.layout')
 
-
-
 @section('title','Mostrar Post')
 @section('titlePage','Mostrar Post')
 

@@ -1,10 +1,7 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TestController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -18,36 +15,26 @@ use App\Http\Controllers\TestController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 
-#Route::resource('post', PostController::class);
+Route::group(['prefix'=>'dashboard','middleware'=>'auth'],function(){
+    Route::resources([
+        'post' => App\Http\Controllers\PostController::class,
+        'category' => App\Http\Controllers\CategoryController::class,
+    ]);
+});
 
-Route::get('post/create',[PostController::class, 'create'])->name('post.create');
-Route::post('post',[PostController::class, 'store'])->name('post.store');
-Route::get('post',[PostController::class, 'index'])->name('post.index');
-
-Route::get('post/{post}/edit',[PostController::class, 'edit'])->name('post.edit');
-Route::get('post/{post}',[PostController::class, 'show'])->name('post.show');
-Route::put('post/{post}',[PostController::class, 'destroy'])->name('post.destroy');
-Route::put('post/update/{post}',[PostController::class, 'update'])->name('post.update');
-
-Route::get('category',[CategoryController::class,'index'])->name('category.index');
-Route::get('category/create',[CategoryController::class,'create'])->name('category.create');
-Route::post('category',[CategoryController::class,'store'])->name('category.store');
-Route::get('category/{category}',[CategoryController::class,'show'])->name('category.show');
-Route::get('category/{category}/edit',[CategoryController::class,'edit'])->name('category.edit');
-Route::put('category/update/{category}',[CategoryController::class,'update'])->name('category.update');
-Route::put('category/{category}',[CategoryController::class, 'destroy'])->name('category.destroy');
-
-
-
-/*
-Route::get('post',[PostController::class, 'index']);
-
-
-
-
-
-*/
+require __DIR__.'/auth.php';

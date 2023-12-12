@@ -10,7 +10,7 @@
     @method('PUT')
 
     <label for="title">Titulo</label><br>
-    <input type="text" name="title" id="title" value='{{$category->title}}'>
+    <input class="form-control" type="text" name="title" id="title" value='{{$category->title}}'>
 
     @error('title')
     <br>
@@ -28,7 +28,7 @@
     
     <br><br>
 
-    <button type="submit">Enviar</button>
+    <button class="btn btn-success mt-2" type="submit">Enviar</button>
 </form>
 
 @if ($errors->any())
