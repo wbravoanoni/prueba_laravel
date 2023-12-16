@@ -3,7 +3,9 @@
 namespace App\Http\Requests\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class StoreRequest extends FormRequest
 {
@@ -33,5 +35,12 @@ class StoreRequest extends FormRequest
         $this->merge([
             'slug' => Str::slug($this->title)
         ]);
+    }
+
+    public function failedValidation(\Illuminate\Contracts\Validation\Validator $validator){
+        if($this->expectsJson()){
+            $response = new Response($validator->errors(),422);
+            throw new ValidationException($validator,$response);
+        }
     }
 }
